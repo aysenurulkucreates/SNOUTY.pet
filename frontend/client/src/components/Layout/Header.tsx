@@ -1,16 +1,16 @@
-import { useState } from "react"; // Menü aç-kapa için ekledik
+import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/UseAuth";
 
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [isOpen, setIsOpen] = useState(false); // Menünün durumunu tutan hafıza
+  const [isOpen, setIsOpen] = useState(false);
   const { currentUser, logout } = useAuth();
 
   const handleLogout = () => {
     logout();
-    setIsOpen(false); // Çıkış yapınca menüyü kapat
+    setIsOpen(false);
     navigate("/login");
   };
 
@@ -21,7 +21,6 @@ const Header = () => {
           <h1 className="text-5xl font-black tracking-tighter text-[#628141] uppercase drop-shadow-sm">
             SN
           </h1>
-          {/* 'O' Harfi Yerine Geçen Meraklı Kedi İllüstrasyonu (SVG) */}
           <div className="relative mx-1 -mt-2 transition-transform group-hover:scale-110 duration-300">
             <svg
               width="55"
@@ -30,8 +29,6 @@ const Header = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              {/* 'O' Harfi (Halka) */}
-
               <circle
                 cx="30"
                 cy="30"
@@ -40,51 +37,29 @@ const Header = () => {
                 strokeWidth="8"
                 fill="none"
               />
-
-              {/* Halkanın İçinden Bakan Kedi Kafası */}
-
               <mask id="cat-mask">
                 <circle cx="30" cy="30" r="24" fill="white" />
               </mask>
-
               <g mask="url(#cat-mask)">
-                {/* Kedi Gövdesi/Kafası (Sıcak Hardal Rengi) */}
-
                 <ellipse cx="30" cy="45" rx="20" ry="18" fill="#EBB446" />
-
-                {/* Kulaklar */}
-
                 <path d="M15 35L22 25L29 35" fill="#EBB446" />
-
                 <path d="M45 35L38 25L31 35" fill="#EBB446" />
-
-                {/* Gözler */}
-
                 <circle cx="24" cy="40" r="2.5" fill="#4A2C21" />
-
                 <circle cx="36" cy="40" r="2.5" fill="#4A2C21" />
-
-                {/* Minik Burun */}
-
                 <ellipse cx="30" cy="44" rx="3" ry="2" fill="#C05621" />
               </g>
-
-              {/* Halkanın Üzerindeki Pati (Dışarı Taşma Efekti) */}
-
               <path
                 d="M48 20C50 18 54 18 56 20C58 22 58 26 56 28C54 30 50 30 48 28"
                 fill="#EBB446"
                 stroke="#4A2C21"
                 strokeWidth="2"
               />
-
               <path
                 d="M50 22L50 26"
                 stroke="#4A2C21"
                 strokeWidth="2"
                 strokeLinecap="round"
               />
-
               <path
                 d="M53 22L53 26"
                 stroke="#4A2C21"
@@ -93,7 +68,6 @@ const Header = () => {
               />
             </svg>
           </div>
-          {/* Metnin Kalan Kısmı */}
           <h1 className="text-5xl font-black tracking-tighter text-[#1581BF] uppercase drop-shadow-sm">
             UTY
           </h1>
@@ -120,9 +94,7 @@ const Header = () => {
         )}
 
         {currentUser ? (
-          /* PROFİL MENÜSÜ BURADA BAŞLIYOR */
           <div className="relative">
-            {/* Tetikleyici: Profil Fotoğrafı (Daire) */}
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="w-12 h-12 rounded-full border-2 border-[#1581BF] overflow-hidden hover:scale-105 transition-transform"
@@ -137,16 +109,25 @@ const Header = () => {
               />
             </button>
 
-            {/* Açılır Menü (Dropdown Box) */}
             {isOpen && (
               <div className="absolute right-0 mt-4 w-56 bg-white border border-zinc-200 shadow-2xl rounded-2xl py-4 z-[60] animate-in fade-in zoom-in duration-200">
                 <div className="px-6 py-2 border-b border-zinc-100 mb-2">
                   <p className="text-xs font-bold text-zinc-400 uppercase tracking-widest">
-                    Welcome!
+                    Welcome {currentUser.username}!
                   </p>
                 </div>
 
-                {/* Menü Linkleri */}
+                {/* 🚀 ADMIN ONLY LINK: The Secret Door */}
+                {currentUser?.isAdmin && (
+                  <Link
+                    to="/admin"
+                    onClick={() => setIsOpen(false)}
+                    className="block px-6 py-3 text-sm font-black text-purple-600 bg-purple-50 hover:bg-purple-100 transition-colors border-b border-zinc-100"
+                  >
+                    ADMIN PANEL ⚙️
+                  </Link>
+                )}
+
                 <Link
                   to="/dashboard"
                   onClick={() => setIsOpen(false)}

@@ -9,24 +9,26 @@ import {
   updatePet,
   deletePet,
   getAdminStats,
+  getRecentActivities,
 } from "../controllers/Admin";
-import { verifyAdmin } from "../middleware/VerifyToken";
+import { verifyAdmin, verifyToken } from "../middleware/VerifyToken";
 
 const router = Router();
 
 //USERS
-router.get("/users", verifyAdmin, getAllUsers);
-router.get("/users/:id", verifyAdmin, getUser);
-router.patch("/users/:id", verifyAdmin, updateUser);
-router.delete("/users/:id", verifyAdmin, deleteUser);
+router.get("/users", verifyToken, verifyAdmin, getAllUsers);
+router.get("/users/:id", verifyToken, verifyAdmin, getUser);
+router.patch("/users/:id", verifyToken, verifyAdmin, updateUser);
+router.delete("/users/:id", verifyToken, verifyAdmin, deleteUser);
 
 //PETS
-router.get("/pets", verifyAdmin, getAllPets);
-router.get("/pets/:id", verifyAdmin, getPet);
-router.patch("/pets/:id", verifyAdmin, updatePet);
-router.delete("/pets/:id", verifyAdmin, deletePet);
+router.get("/pets", verifyToken, verifyAdmin, getAllPets);
+router.get("/pets/:id", verifyToken, verifyAdmin, getPet);
+router.patch("/pets/:id", verifyToken, verifyAdmin, updatePet);
+router.delete("/pets/:id", verifyToken, verifyAdmin, deletePet);
 
 //ADMİN STATS
-router.get("/admin/stats", verifyAdmin, getAdminStats);
+router.get("/stats", verifyToken, verifyAdmin, getAdminStats);
+router.get("/recent-activities", verifyToken, verifyAdmin, getRecentActivities);
 
 export default router;

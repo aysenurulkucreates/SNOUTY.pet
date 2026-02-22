@@ -4,7 +4,7 @@ import type { User } from "../types/User";
 // 1. Context tipi
 export interface AuthContextType {
   currentUser: User | null;
-  // Dikkat: Login fonksiyonun token ve kullanıcı datası bekliyor!
+  token: string | null;
   login: (token: string, userData: User) => void;
   logout: () => void;
 }

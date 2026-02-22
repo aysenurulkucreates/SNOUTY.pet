@@ -47,6 +47,7 @@ export const login = async (req: Request, res: Response) => {
       {
         email: user.email,
         userId: user._id.toString(),
+        isAdmin: user.isAdmin,
       },
       process.env.SECRET_KEY!,
       { expiresIn: "3d" },

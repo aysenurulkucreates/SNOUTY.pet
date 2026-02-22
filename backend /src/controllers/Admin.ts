@@ -165,3 +165,13 @@ export const getAdminStats = async (req: Request, res: Response) => {
       .json({ msg: "Failed system. Please try again later!" });
   }
 };
+export const getRecentActivities = async (req: Request, res: Response) => {
+  try {
+    const recentUsers = await User.find().sort({ createdAt: -1 }).limit(5);
+    const recentPets = await Pet.find().sort({ createdAt: -1 }).limit(5);
+    res.status(200).json({ recentPets, recentUsers });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "System failed. Please try again later!" });
+  }
+};
