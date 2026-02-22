@@ -8,6 +8,7 @@ export interface User {
   expectedFee?: number;
   location?: string;
   bio: string;
+  tags: string[];
   experience: string;
   homeEnvironment: string;
   profilePicture?: string;

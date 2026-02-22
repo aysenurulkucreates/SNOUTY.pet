@@ -16,13 +16,17 @@ export const verifyToken = (req: any, res: Response, next: NextFunction) => {
     return res.status(401).json({ msg: "You are not authenticated!" });
   }
 
-  jwt.verify(token, process.env.SECRET_KEY as string, (err: any, user: any) => {
-    if (err) {
-      return res.status(403).json({ msg: "Token is not valid!" }); // 'return' ile burada durduruyoruz!
-    }
-    req.user = user;
-    next();
-  });
+  jwt.verify(
+    token,
+    process.env.SECRET_KEY as string,
+    (err: any, decoded: any) => {
+      if (err) {
+        return res.status(403).json({ msg: "Token is not valid!" }); // 'return' ile burada durduruyoruz!
+      }
+      req.user = decoded;
+      next();
+    },
+  );
 };
 
 export const verifyAdmin = (req: any, res: Response, next: NextFunction) => {

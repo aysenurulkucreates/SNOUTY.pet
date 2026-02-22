@@ -30,6 +30,40 @@ export const getPet = async (req: Request, res: Response) => {
   }
 };
 
+export const getMyPets = async (req: Request, res: Response) => {
+  // 🩺 Adım 1: Fonksiyonun tetiklendiğini teyit ediyoruz
+  console.log("🚑 getMyPets: Operation started...");
+
+  try {
+    const user = (req as any).user;
+    console.log("🩺 Patient Identity (Token Data):", user);
+
+    if (!user || !user.userId) {
+      console.error("🚨 Diagnostic Failure: User ID missing in request!");
+      return res.status(401).json({ msg: "User identity missing in token!" });
+    }
+
+    const ownerId = user.userId;
+    console.log("🔍 Searching for pets owned by:", ownerId);
+
+    // 🩺 Adım 2: Veritabanı sorgusu
+    const myPets = await Pet.find({ userId: ownerId });
+
+    console.log(`✅ Success: Found ${myPets.length} pets for user ${ownerId}`);
+
+    // JSON olarak patileri pırlanta gibi döndürüyoruz
+    return res.status(200).json(myPets);
+  } catch (error: any) {
+    // 🚨 KRİTİK: Gerçek hatayı hem terminale hem de frontend'e fırlatıyoruz
+    console.error("🔥 SYSTEM COLLAPSE (Internal Error):", error.message);
+
+    return res.status(500).json({
+      msg: "Unexpected error occured. Please check server logs.",
+      diagnostic: error.message, // 💉 Bu satır hatayı Network sekmesine taşır
+    });
+  }
+};
+
 export const createPet = async (req: Request, res: Response) => {
   try {
     const ownerId = (req as any).user.userId;

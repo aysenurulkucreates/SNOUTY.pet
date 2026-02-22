@@ -25,7 +25,7 @@ router.get("/caregiving/:id", getSitter);
 
 router.patch("/caregiving", verifyToken, updateCaregivingProfile);
 
-router.patch("/:id", verifyToken, updateProfile);
+router.patch("/profile", verifyToken, updateProfile);
 
 router.delete("/:id", verifyToken, deleteAccount);
 

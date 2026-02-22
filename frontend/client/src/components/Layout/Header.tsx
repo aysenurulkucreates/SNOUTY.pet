@@ -143,7 +143,7 @@ const Header = () => {
                   PROFILE
                 </Link>
                 <Link
-                  to="/profile"
+                  to="/my-pets"
                   onClick={() => setIsOpen(false)}
                   className="block px-6 py-3 text-sm font-bold text-zinc-600 hover:bg-zinc-50 hover:text-[#1581BF] transition-colors"
                 >

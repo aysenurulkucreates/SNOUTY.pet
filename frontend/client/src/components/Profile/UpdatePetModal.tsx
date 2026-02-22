@@ -44,7 +44,7 @@ const UpdatePetModal = ({ pet, onSuccess, onCancel }: UpdatePetProps) => {
 
       onSuccess(response.data.result);
       alert("Success! Your bestie's record is updated. 🐾");
-      navigate("/profile");
+      navigate("/my-pets");
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
         setError(err.response?.data?.message || "Failed updating");

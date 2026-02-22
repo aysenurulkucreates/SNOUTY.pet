@@ -5,6 +5,7 @@ import {
   getPet,
   deletePet,
   updatePet,
+  getMyPets,
 } from "../controllers/Pet";
 import { verifyToken } from "../middleware/VerifyToken";
 
@@ -12,9 +13,11 @@ const router = Router();
 
 router.get("/", getAllPets);
 
-router.get("/:id", getPet);
+router.get("/my-pets", verifyToken, getMyPets);
 
 router.post("/", verifyToken, createPet);
+
+router.get("/:id", getPet);
 
 router.delete("/:id", verifyToken, deletePet);
 

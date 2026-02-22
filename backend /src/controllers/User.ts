@@ -161,12 +161,13 @@ export const updateCaregivingProfile = async (req: Request, res: Response) => {
 
 export const updateProfile = async (req: Request, res: Response) => {
   try {
-    const id = req.user.id;
-    const { password, ...updatedData } = req.body;
+    const id = req.user.userId;
+    const { password, isAdmin, ...updatedData } = req.body;
     const result = await User.findByIdAndUpdate(id, updatedData, {
-      new: true,
+      returnDocument: "after",
       runValidators: true,
     });
+
     if (!result) {
       return res.status(404).json({ msg: "User not found!" });
     }

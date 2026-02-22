@@ -15,6 +15,8 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import UserManagement from "./pages/admin/UserManagement";
 import PetManagement from "./pages/admin/PetManagement";
 import AdminRoute from "./components/AdminRoute";
+import MyPets from "./components/MyPets";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -23,7 +25,9 @@ function App() {
         <Route element={<UserLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/pets" element={<PetList />} />
+          <Route path="/my-pets" element={<MyPets />} />
           <Route path="/pets/:id" element={<PetDetails />} />
           <Route path="/sitters" element={<CaregivingList />} />
           <Route path="/sitters/:id" element={<SitterDetails />} />

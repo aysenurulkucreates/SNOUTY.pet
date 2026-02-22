@@ -9,6 +9,7 @@ export interface Iuser extends Document {
   expectedFee?: number;
   location?: string;
   bio: string;
+  tags: [string];
   experience?: number;
   homeEnvironment?: string;
   profilePicture?: string;
@@ -24,6 +25,7 @@ const UserSchema: Schema = new Schema(
     expectedFee: { type: Number, default: 0 },
     location: { type: String, default: 0 },
     bio: { type: String, required: true },
+    tags: { type: [String], default: [] },
     experience: { type: String, default: "" },
     homeEnvironment: {
       type: String,
